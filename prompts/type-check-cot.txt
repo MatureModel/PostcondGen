@@ -1,0 +1,79 @@
+We will give you the code context, function stub and natural language specification (in the form of a code comment) for a specific function.
+Please write symbolic post-conditions for the function using assert statements.
+Please adhere to the following guidelines:
+1. The post-condition MUST be "Type Check", meaning your post-condition should solely verify the correctness of the type of return_val.
+2. When writing the post-conditions, only use the function's input parameters and a hypothetical return value variable, which we will assume is stored in a variable named return_val.
+3. If the post-conditions calls any function external to the program context, it should just be "isinstance". For example, "assert isinstance(return_val, bool)".
+4. Avoid using logical operators "and" in the assertions. Simplify the expression by breaking it down into smaller, more manageable parts if necessary.
+5. Consider all possible types of the return_val, including None if applicable.
+6. If the type of return_val is a collection such as tuple, list, set, or dict, check the types of the individual elements within return_val as well.
+
+The format of your response SHOULD be:
+* [EXPLANATION]:
+short explanation for the post-conditions
+* [POST-CONDITIONS]:
+```python
+list of assert statements for the post-conditions
+```
+
+Write post-conditions for [sum].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+def sum(l: list):
+    """This function returns the sum of all the elements in the list.
+    >>> sum_list([1, 2, 3])
+    6
+    >>> sum_list([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+    126
+    """
+* [EXPLANATION]:
+1. Return Type: Since the function is supposed to return the sum of a list, the return value should be a numerical type, either an integer or a float.
+* [POST-CONDITIONS]:
+```python
+# Type Check
+assert isinstance(return_val, int) or isinstance(return_val, float)
+```
+
+Write post-conditions for [increment_list].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+def increment_list(numbers: List[int]) -> List[int]
+    """This function takes a list of numbers as input and increments every element of the list by one.
+    >>> increment_list([1, 2, 3])
+    [2, 3, 4]
+	>>> increment_list([2, 2, 2, 2])
+    [3, 3, 3, 3]
+    """
+* [EXPLANATION]:
+1. Return Type: The function returns a list.
+2. Element Return Type: elements within the return value should be a numerical type, either an integer or a float.
+* [POST-CONDITIONS]:
+```python
+# Type Check
+assert isinstance(return_val, list)
+
+assert all(isinstance(number, int) or isinstance(number, float) for number in return_val)
+```
+
+Write post-conditions for [reverse_string].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+def reverse_string(s) -> str:
+    """
+    This function returns the reversed version of the input string.
+    If the input string is an empty string, return None.
+    >>> reverse_string("abc")
+    "cba"
+    >>> reverse_string("")
+    None
+    """
+* [EXPLANATION]:
+1. Return Type: The function returns None or a string.
+* [POST-CONDITIONS]:
+```python
+# Type Check
+if return_val is not None:
+    assert isinstance(return_val, str)
+```
+
+Write post-conditions for [{{{function_name}}}].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+{{{natural_language}}}
+* [EXPLANATION]:

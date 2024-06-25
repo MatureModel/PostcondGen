@@ -1,0 +1,36 @@
+We will give you the code context, function stub and natural language specification (in the form of a code comment) for a specific function. The function would comply with the natural language specification.
+Please write symbolic post-conditions for the function using assert statements.
+Please adhere to the following guidelines:
+1. The post-conditions MUST be "Format Check", meaning your post-condition should check whether the return_val matches with the required format according to the function description.
+2. When writing the post-condition, only use the function's input parameters and a hypothetical return value variable, which we will assume is stored in a variable named return_val.
+3. If the post-condition calls any function external to the program context, they should only be those from the functional subset of Python. By this, we mean functions that are pure (i.e., no side effects) such as len(), startswith(), count() and so on.
+4. Avoid using logical operators "and" in the assertion. Simplify the expression by breaking it down into smaller, more manageable parts.
+5. The format of the return value should reflect one of the following aspects: character composition, length, order of characters or else.
+
+The format of your answer SHOULD be:
+* [POST-CONDITIONS]:
+```python
+list of assert statements
+```
+
+Write post-conditions for [string_or].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+def string_or(a: str, b: str) -> str:
+    """ Input are two strings a and b consisting only of 1s and 0s.
+    Perform binary OR on these inputs and return result also as a string.
+    >>> string_or('010', '110')
+    returns '110'
+    """
+* [EXPLANATION]:
+The function returns a binary string as output, so the return value should consist only of the characters '1' or '0'.
+* [POST-CONDITIONS]:
+```python
+# Format Check
+# character composition
+assert all(ch == '0' or ch == '1' for ch in return_val)
+```
+
+Write post-conditions for [{{{function_name}}}].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+{{{natural_language}}}
+* [POST-CONDITIONS]:

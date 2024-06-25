@@ -1,0 +1,51 @@
+We will give you the code context, function stub and natural language specification (in the form of a code comment) for a specific function.
+Please write symbolic post-conditions for the function using assert statements.
+Please adhere to the following guidelines:
+1. The post-condition MUST be "Null Check", meaning your post-condition should solely verify whether the return value could be None from the function description.
+2. When writing the post-conditions, only use the function's input parameters and a hypothetical return value variable, which we will assume is stored in a variable named return_val.
+3. The post-conditions should not call any function external to the program context.
+4. Avoid using logical operators "and" in the assertions. Simplify the expression by breaking it down into smaller, more manageable parts if necessary.
+
+The format of your response SHOULD be:
+* [POST-CONDITIONS]:
+```python
+list of assert statements for the post-conditions
+```
+
+Write post-conditions for [is_negative].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+def is_negative(n):
+    """Return true if a given number is negative, and false otherwise.
+    >>> is_negative(6)
+    False
+    >>> is_negative(-10)
+    True
+    """
+* [POST-CONDITIONS]:
+```python
+# Null Check
+assert return_val is not None
+```
+
+Write post-conditions for [reverse_string].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+def reverse_string(s) -> str:
+    """
+    This function returns the reversed version of the input string.
+    If the input string is an empty string, return None.
+    >>> reverse_string("abc")
+    "cba"
+    >>> reverse_string("")
+    None
+    """
+* [POST-CONDITIONS]:
+```python
+# Null Check
+if s != "":
+    assert return_val is not None
+```
+
+Write post-conditions for [{{{function_name}}}].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+{{{natural_language}}}
+* [POST-CONDITIONS]:

@@ -1,0 +1,37 @@
+We will give you the code context, function stub and natural language specification (in the form of a code comment) for a specific function. The function would comply with the natural language specification.
+Please write symbolic post-conditions for the function using assert statements.
+Please adhere to the following guidelines:
+1. The post-conditions MUST be "Arithmetic Bounds Check", meaning your post-condition should check whether the return_val falls within a reasonable range according to the function description.
+2. When writing the post-condition, only use the function's input parameters and a hypothetical return value variable, which we will assume is stored in a variable named return_val.
+3. If the post-condition calls any function external to the program context, they should only be those from the functional subset of Python. By this, we mean functions that are pure (i.e., no side effects) such as len, sum, round, abs, count and so on.
+4. Avoid using logical operators "and" in the assertion. Simplify the expression by breaking it down into smaller, more manageable parts.
+
+The format of your answer SHOULD be:
+* [POST-CONDITIONS]:
+```python
+list of assert statements
+```
+
+Write post-conditions for [multiply].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+def multiply(n1, n2):
+    """
+    Assuming that n1 and n2 are both greater than zero,
+    return the product of the two given numbers.
+    >>> product(4, 5)
+    20
+    >>> product(100, 8)
+    800
+    """
+* [POST-CONDITIONS]:
+```python
+# Arithmetic Bounds Check
+assert return_val > 0
+assert return_val >= min(n1, n2) * min(n1, n2)
+assert return_val <= max(n1, n2) * max(n1, n2)
+```
+
+Write post-conditions for [{{{function_name}}}].
+* [CODE CONTEXT, FUNCTION STUB, AND CODE COMMENT]:
+{{{natural_language}}}
+* [POST-CONDITIONS]:
