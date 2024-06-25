@@ -28,12 +28,10 @@ def generate_prompt(prompt_version, problem):
 
 
 def generate_postcond(prompt):
-    # API_URL = "https://api-inference.huggingface.co/models/google/gemma-7b"
-    # API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
-    API_URL = "https://api-inference.huggingface.co/models/google/gemma-1.1-7b-it"
+    API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
 
-    # headers = {"Authorization": "Bearer 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"}
-    headers = {"Authorization": "Bearer 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"}
+    api_key = open(f"./api_key.txt", "r").read()
+    headers = {"Authorization": api_key}
     proxies = {
         "http": "http://127.0.0.1:7890",
         "https": "http://127.0.0.1:7890",

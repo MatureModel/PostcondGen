@@ -6,21 +6,14 @@ from math import comb
 
 
 def read_args(source_code):
-    # 解析源代码生成AST
     tree = ast.parse(source_code)
 
-    # 用于存储找到的函数及其参数
     functions = {}
 
-    # 遍历AST的每一个节点
     for node in ast.iter_child_nodes(tree):
-        # 检查节点是否为函数定义
         if isinstance(node, ast.FunctionDef):
-            # 提取函数名
             function_name = node.name
-            # 提取参数列表
             params = [param.arg for param in node.args.args]
-            # 将函数名和参数列表添加到列表中
             functions[function_name] = params
 
     return functions
@@ -175,11 +168,8 @@ def to_eval_correctness(problems, targets, postcond_type, responses_path, eval_p
         if len(eval_res["correct_postconds"]) > 0:
             correct_problem += 1
         total_balls = 5
-        # 蓝球的数量
         blue_balls = total_balls - eval_res["correct_responses"]
-        # 从5个球中取3个球都是蓝球的概率
         prob_all_blue = comb(blue_balls, 3) / comb(total_balls, 3)
-        # 至少有一个红球的概率
         prob_at_least_one_red = 1 - prob_all_blue
         rate += prob_at_least_one_red
 
@@ -251,7 +241,7 @@ def to_eval_completeness(problems, buggy_codes_path, eval_path, completeness_pat
 
 
 def save_total(base_path):
-    data_set_path = "D:\projects\developing\\2023\FormalSpecification\data-set\HumanEvalPlus-v0.1.9.jsonl\HumanEvalPlus-v0.1.9.jsonl"
+    data_set_path = ""
     problems = CommonUtil.read_jsonl(data_set_path)
 
     result = {key: {"task_id": key, "size": 0, "correct_size": 0, "correct_postconds": [], "incorrect_postconds": []}
@@ -297,14 +287,3 @@ def save_total(base_path):
         }
         fp.write((json.dumps(data) + "\n").encode("utf-8"))
 
-if __name__ == '__main__':
-    base_dir = "D:\projects\developing\\2023\FormalSpecification\\results\Mistral-7b\\categories"
-    save_total(base_dir)
-
-    data_set_path = "D:\projects\developing\\2023\FormalSpecification\data-set\HumanEvalPlus-v0.1.9.jsonl\HumanEvalPlus-v0.1.9.jsonl"
-    problems = CommonUtil.read_jsonl(data_set_path)
-    buggy_codes_path = "D:\projects\developing\\2023\FormalSpecification\\results\\bug-code\code.jsonl"
-    eval_path = base_dir + "\\total\\latest.jsonl"
-    complete_path = base_dir + "\\total\\latest_completeness.jsonl"
-
-    to_eval_completeness(problems, buggy_codes_path, eval_path, complete_path)

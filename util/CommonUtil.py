@@ -1,5 +1,4 @@
 import json
-import ast
 
 
 def read_jsonl(filepath):

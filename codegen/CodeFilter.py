@@ -43,7 +43,7 @@ def test_buggy_code(code, buggy_code, inputs, entry_point):
     return flag, buggy_res
 
 
-def test_buggy_codes(problem, buggy_codes):
+def test_buggy_codes(problem, buggy_codes, file_path):
     valid_buggy_codes = []
     valid_buggy_inputs = []
     good = []
@@ -77,7 +77,6 @@ def test_buggy_codes(problem, buggy_codes):
     # print(key)
     print(count)
     print(len(valid_buggy_codes))
-    file_path = "D:\projects\developing\\2023\FormalSpecification\data-set\HumanEvalPlus-Mini-v0.1.9.jsonl\\results\\bug-code\\code02.jsonl"
     with open(file_path, "ab") as fp:
         tmp = {
             "task_id": problem["task_id"],
@@ -87,33 +86,3 @@ def test_buggy_codes(problem, buggy_codes):
         }
         fp.write((json.dumps(tmp) + "\n").encode("utf-8"))
 
-
-if __name__ == '__main__':
-    data_set_path = "D:\projects\developing\\2023\FormalSpecification\data-set\HumanEvalPlus-v0.1.9.jsonl\\HumanEvalPlus-v0.1.9.jsonl"
-    problems = CommonUtil.read_jsonl(data_set_path)
-
-    buggy_code_path = "D:\projects\developing\\2023\FormalSpecification\data-set\HumanEvalPlus-Mini-v0.1.9.jsonl\\results\\bug-code\\natural\\answers\code_plus.jsonl"
-    codes = CommonUtil.read_file(buggy_code_path)
-
-    tmp = {"HumanEval/" + str(i): [] for i in [76]}
-    for each in codes:
-        if each["task_id"] in tmp.keys():
-            tmp[each["task_id"]].append(each)
-
-    for key, value in tmp.items():
-        buggy_codes = []
-        num = 1
-        for i in value:
-            code = exact(i["generated_text"])
-            if is_valid_code(code):
-                print("gggggggggggggggggggggggggggggggg")
-                print(num)
-                print(code)
-                buggy_codes.append(code)
-                num += 1
-            else:
-                print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
-                print(num)
-                print(code)
-                num += 1
-        test_buggy_codes(problems[key], buggy_codes)

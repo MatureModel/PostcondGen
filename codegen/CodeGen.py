@@ -1,6 +1,7 @@
 import json
 import requests
 from util import CommonUtil
+from CodeFilter import test_buggy_codes
 
 # 1. generate code
 # 2. filter code
@@ -11,10 +12,8 @@ def gen_prompt(s):
 
 
 def generate_code(prompt):
-    # API_URL = "https://api-inference.huggingface.co/models/google/gemma-7b-it"
     API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
-    headers = {"Authorization": "Bearer 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"}
-    # headers = {"Authorization": "Bearer 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"}
+    headers = {"Authorization": "API_KEY"}
 
     proxies = {
         "http": "http://127.0.0.1:7890",
@@ -53,17 +52,23 @@ def save_mutants(problems, targets, file_path, num):
     return result
 
 
-if __name__ == '__main__':
-    file_path = "D:\projects\developing\\2023\FormalSpecification\data-set\HumanEvalPlus-Mini-v0.1.9.jsonl\\results\\bug-code\\natural\\answers\code_plus.jsonl"
-    data_set_path = "D:\projects\developing\\2023\FormalSpecification\data-set\HumanEvalPlus-Mini-v0.1.9.jsonl\\HumanEvalPlus-Mini-v0.1.9.jsonl"
-    problems = CommonUtil.read_jsonl(data_set_path)
-    codes = CommonUtil.read_file(file_path)
+def main():
+    codes_path = "filepath"
+    data_set_path = "filepath"
+    buggy_codes_path = "filepath"
 
-    tmp = {"HumanEval/" + str(i): [] for i in [2, 8, 13, 19, 29, 30, 34, 35, 42, 45, 49, 50, 55, 60, 67, 72, 76, 139, 162]}
+    problems = CommonUtil.read_jsonl(data_set_path)
+    codes = CommonUtil.read_file(codes_path)
+
+    tmp = {"HumanEval/" + str(i): [] for i in range(164)}
     for each in codes:
         if each["task_id"] in tmp.keys():
             tmp[each["task_id"]].append(each)
 
     for key, value in tmp.items():
         if len(value) < 50:
-            save_mutants(problems, [key], file_path, 50 - len(value))
+            value.append(save_mutants(problems, [key], codes_path, 50 - len(value)))
+        test_buggy_codes(key, value, buggy_codes_path)
+
+if __name__ == '__main__':
+    main()
